@@ -5,7 +5,6 @@ define([
   "../lib/yam",
   "../lib/bayeux-monitor"
 ], function(_, yam, BayeuxMonitor){
-  debugger;
 
   // An inbox that collects pubsub events.
   // Event assertions are asserted in the order that they were collected.
