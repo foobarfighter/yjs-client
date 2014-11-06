@@ -23,14 +23,18 @@ define([
 
     afterEach(function () {
       // Ensure bayeux is disconnected before each test
-      bayeux.disconnect();
-      mostRecentAjaxRequest().response({
-        status: 200,
-        responseText: JSON.stringify({
-          successful: true,
-          channel: '/meta/disconnect'
-        })
-      });
+      if (bayeux.getStatus() != 'disconnected') {
+        bayeux.disconnect();
+
+        mostRecentAjaxRequest().response({
+          status: 200,
+          responseText: JSON.stringify({
+            successful: true,
+            channel: '/meta/disconnect'
+          })
+        });
+      }
+
       expect(bayeux.getStatus()).toBe('disconnected');
       jasmine.clock().uninstall();
       jasmine.Ajax.uninstall();
