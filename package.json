@@ -1,0 +1,18 @@
+{
+  "name": "yjs-client",
+  "version": "0.0.1",
+  "description": "Client library for yammer api",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "author": "Bob Remeika",
+  "license": "MIT",
+  "devDependencies": {
+    "jasmine": "^2.0.1"
+  },
+  "dependencies": {
+    "amdefine": "^0.1.0",
+    "requirejs": "^2.1.15"
+  }
+}
