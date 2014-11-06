@@ -7,6 +7,18 @@ define([
 ], function(bayeux, yam) {
   "use strict";
 
+  function mostRecentAjaxRequest() {
+    if (jasmine.Ajax.requests.count()) {
+      return jasmine.Ajax.requests.mostRecent();
+    } else {
+      return null;
+    }
+  }
+
+  function clearAjaxRequests() {
+    jasmine.Ajax.requests.reset();
+  }
+
   // FIXME: Rewrite spec to run under nodejs
   if (typeof global !== 'undefined') {
     console.warn("Not running bayeux-spec.js under nodejs");
@@ -263,6 +275,7 @@ define([
 
       describe('and the client is successfully disconnected', function () {
         beforeEach(function () {
+          expect(bayeux.getStatus()).not.toBe('disconnected');
           bayeux.disconnect();
           mostRecentAjaxRequest().response({
             status: 200,
