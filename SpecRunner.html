@@ -13,12 +13,13 @@
 
       // Define all of your specs here. These are RequireJS modules.
       var specs = [
-        'spec/realtime-client-spec'
+        'spec/realtime-client-spec',
+        'spec/bayeux-monitor-spec'
       ];
 
       // Load jasmine and run specs
       require(['boot'], function () {
-        require(specs, function (){
+        require(specs, function () {
           window.onload();
         });
       });

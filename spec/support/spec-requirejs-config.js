@@ -8,6 +8,7 @@
       'jasmine':      'bower_components/jasmine/lib/jasmine-core/jasmine',
       'jasmine-html': 'bower_components/jasmine/lib/jasmine-core/jasmine-html',
       'boot':         'bower_components/jasmine/lib/jasmine-core/boot',
+      'underscore':   'bower_components/underscore/underscore',
       'lib':          'lib',
       'spec':         'spec'
     },
@@ -22,6 +23,9 @@
       'boot': {
         deps: ['jasmine', 'jasmine-html'],
         exports: 'window.jasmineRequire'
+      },
+      'underscore': {
+        exports: '_'
       }
     }
   });
