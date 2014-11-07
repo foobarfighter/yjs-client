@@ -10,8 +10,7 @@ if (typeof global !== 'undefined') {
 
 define([
   "../lib/bayeux",
-  "../lib/yam",
-  "jasmine-ajax"
+  "../lib/yam"
 ], function(bayeux, yam) {
   "use strict";
 

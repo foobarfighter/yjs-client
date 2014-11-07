@@ -5,8 +5,11 @@
   <title>Jasmine Test Runner</title>
   <link rel="stylesheet" type="text/css" href="bower_components/jasmine/lib/jasmine-core/jasmine.css">
 
+  <script type="text/javascript" src="bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+  <script type="text/javascript" src="bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
   <script type="text/javascript" src="bower_components/requirejs/require.js"></script>
   <script type="text/javascript" src="spec/support/spec-requirejs-config.js"></script>
+  
   <script type="text/javascript">
     (function() {
       'use strict';
@@ -16,11 +19,12 @@
         'spec/realtime-client-spec',
         'spec/bayeux-monitor-spec',
         'spec/bayeux-spec',
+        'spec/request-spec',
         'spec/uri-spec'
       ];
 
       // Load jasmine and run specs
-      require(['boot'], function () {
+      require(['boot', 'jasmine-ajax'], function () {
         require(specs, function () {
           window.onload();
         });

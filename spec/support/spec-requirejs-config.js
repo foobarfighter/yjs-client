@@ -7,8 +7,6 @@
     paths: {
 
       // Test dependencies
-      'jasmine':        'bower_components/jasmine/lib/jasmine-core/jasmine',
-      'jasmine-html':   'bower_components/jasmine/lib/jasmine-core/jasmine-html',
       'jasmine-ajax':   'bower_components/jasmine-ajax/lib/mock-ajax',
       'boot':           'bower_components/jasmine/lib/jasmine-core/boot',
       'spec':           'spec',
@@ -25,19 +23,12 @@
       'lib':            'lib'
     },
     shim: {
-      'jasmine': {
-        exports: 'window.jasmineRequire'
-      },
-      'jasmine-html': {
-        deps: ['jasmine'],
-        exports: 'window.jasmineRequire'
+      'boot': {
+        exports: 'window.jasmine'
       },
       'jasmine-ajax': {
-        deps: ['jasmine']
-      },
-      'boot': {
-        deps: ['jasmine', 'jasmine-html'],
-        exports: 'window.jasmineRequire'
+        deps: ['boot'],
+        exports: 'window.MockAjax'
       },
       'underscore': {
         exports: '_'

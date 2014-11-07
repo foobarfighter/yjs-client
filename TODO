@@ -6,3 +6,7 @@ TODO:
 * replace yam.promise with jQuery.Deferred / Promise
 * jquery.cometd does not work under AMD... see the last line of the file
   * patch in postinstall step?
+
+
+TODO CORE FIXES:
+* yam.request really should not depend on yam.window
