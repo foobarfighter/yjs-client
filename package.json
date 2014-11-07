@@ -10,7 +10,7 @@
   "license": "MIT",
   "devDependencies": {
     "jasmine": "^2.0.1",
-    "jasmine-ajax": "^2.0.1",
+    "jasmine-ajax": "^2.0.1"
   },
   "dependencies": {
     "amdefine": "^0.1.0",

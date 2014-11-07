@@ -1,7 +1,8 @@
 TODO:
 
-- upgrade functions in yam.js to more current versions
-- get bayeux-spec.js to run under nodejs
-- replace yam.promise with jQuery.Deferred / Promise
-- jquery.cometd does not work under AMD... see the last line of the file
-  - patch as postinstall?
+* upgrade functions in yam.js to more current versions
+* get bayeux-spec.js to run under nodejs
+  * move browser only test files into their own directory
+* replace yam.promise with jQuery.Deferred / Promise
+* jquery.cometd does not work under AMD... see the last line of the file
+  * patch in postinstall step?
