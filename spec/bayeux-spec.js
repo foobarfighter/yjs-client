@@ -1,5 +1,13 @@
 if (typeof define !== 'function') { var define = require('amdefine')(module) }
 
+
+// FIXME: Rewrite spec to run under nodejs
+(function (){
+if (typeof global !== 'undefined') {
+  console.warn("Not running bayeux-spec.js under nodejs");
+  return;
+}
+
 define([
   "../lib/bayeux",
   "../lib/yam",
@@ -17,12 +25,6 @@ define([
 
   function clearAjaxRequests() {
     jasmine.Ajax.requests.reset();
-  }
-
-  // FIXME: Rewrite spec to run under nodejs
-  if (typeof global !== 'undefined') {
-    console.warn("Not running bayeux-spec.js under nodejs");
-    return;
   }
 
   describe('yam.client.bayeux', function (){
@@ -307,3 +309,5 @@ define([
 
   });
 });
+
+})();

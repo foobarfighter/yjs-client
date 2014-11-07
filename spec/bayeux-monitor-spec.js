@@ -1,5 +1,13 @@
 if (typeof define !== 'function') { var define = require('amdefine')(module) }
 
+
+// FIXME: Rewrite spec to run under nodejs
+(function (){
+if (typeof global !== 'undefined') {
+  console.warn("Not running bayeux-monitor-spec.js under nodejs");
+  return;
+}
+
 define([
   "underscore",
   "../lib/yam",
@@ -131,3 +139,5 @@ define([
 
   });
 });
+
+})();
