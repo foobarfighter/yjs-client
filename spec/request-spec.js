@@ -1,7 +1,7 @@
 define([
   "underscore",
-  "../lib/yam",
-  "../lib/uri",
+  "yam-core/yam",
+  "yam-core/uri",
   "../lib/request"
 ], function (_, yam, yuri, yrequest){
 

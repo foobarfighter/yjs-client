@@ -10,7 +10,7 @@ if (typeof global !== 'undefined') {
 
 define([
   "underscore",
-  "../lib/yam",
+  "yam-core/yam",
   "../lib/bayeux-monitor"
 ], function(_, yam, BayeuxMonitor){
 

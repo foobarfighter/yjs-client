@@ -1,6 +1,6 @@
 define([
-  "../lib/yam",
-  "../lib/uri"
+  "yam-core/yam",
+  "yam-core/uri"
 ], function (yam, yuri){
 
   describe('uri', function (){

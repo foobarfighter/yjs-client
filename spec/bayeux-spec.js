@@ -10,7 +10,7 @@ if (typeof global !== 'undefined') {
 
 define([
   "../lib/bayeux",
-  "../lib/yam"
+  "yam-core/yam"
 ], function(bayeux, yam) {
   "use strict";
 
