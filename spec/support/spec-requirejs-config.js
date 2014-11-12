@@ -18,7 +18,7 @@
       
       // Cometd dependencies
       'org/cometd':     'lib/cometd/cometd',
-      'jquery.cometd':  'lib/cometd/jquery.cometd',
+      'jquery.cometd':  'lib/cometd/cometd2',
       
       // Library dependencies
       'lib':            'lib',

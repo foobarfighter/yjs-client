@@ -2,7 +2,7 @@
   "name": "yjs-client",
   "version": "0.1.0",
   "description": "Client library for yammer api",
-  "main": "lib/main.js",
+  "main": "./lib/main.js",
   "scripts": {
     "test": "jasmine"
   },
