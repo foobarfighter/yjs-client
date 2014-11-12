@@ -214,7 +214,7 @@
     module.exports = factory(
       require('underscore')
     , require('jquery')
-    , require('./cometd/cometd2')
+    , require('./cometd2')
     , require('./yam-core/yam')
     , require('./bayeux-monitor')
     );

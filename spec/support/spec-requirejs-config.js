@@ -17,8 +17,7 @@
       'yam-core':       'lib/yam-core',
       
       // Cometd dependencies
-      'org/cometd':     'lib/cometd/cometd',
-      'jquery.cometd':  'lib/cometd/cometd2',
+      'jquery.cometd':  'lib/cometd',
       
       // Library dependencies
       'lib':            'lib',
