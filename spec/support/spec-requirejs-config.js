@@ -21,7 +21,7 @@
       'jquery.cometd':  'lib/cometd/jquery.cometd',
       
       // Library dependencies
-      'lib':            'lib'
+      'lib':            'lib',
     },
     shim: {
       'boot': {
