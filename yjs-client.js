@@ -4,12 +4,15 @@
     'underscore',
     'yam-core/yam',
     'jquery.cometd'
-  // , 'yam.$.cometd'
   ];
 
   if (typeof exports === 'object') {
     // CommonJS
-    module.exports = factory(require.apply(null, deps));
+    module.exports = factory(
+      require('underscore'),
+      require('./yam-core/yam'),
+      require('./cometd')
+    );
   } else if (typeof define === 'function' && define.amd) {
     // AMD
     define(deps, function () { return factory.apply(null, arguments); });
@@ -199,13 +202,13 @@
   return BayeuxMonitor;
 }));
 
-},{}],2:[function(require,module,exports){
+},{"./cometd":3,"./yam-core/yam":8,"underscore":10}],2:[function(require,module,exports){
 (function (root, factory) {
   var deps = [
       'underscore'
     , 'jquery'
     , 'jquery.cometd'
-    , 'yam-core/yam'
+    , './yam-core/yam'
     , './bayeux-monitor'
   ];
 
@@ -214,7 +217,7 @@
     module.exports = factory(
       require('underscore')
     , require('jquery')
-    , require('./cometd2')
+    , require('./cometd')
     , require('./yam-core/yam')
     , require('./bayeux-monitor')
     );
@@ -566,7 +569,7 @@
   })();
 }));
 
-},{"./bayeux-monitor":1,"./cometd/cometd2":3,"./yam-core/yam":5,"jquery":6,"underscore":7}],3:[function(require,module,exports){
+},{"./bayeux-monitor":1,"./cometd":3,"./yam-core/yam":8,"jquery":9,"underscore":10}],3:[function(require,module,exports){
 (function (global){
 (function (root, factory) {
   var deps = ['jquery'];
@@ -3888,13 +3891,13 @@ return jQuery.cometd;
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":6}],4:[function(require,module,exports){
+},{"jquery":9}],4:[function(require,module,exports){
 (function (root, factory) {
   var deps = ['./realtime-client'];
 
   if (typeof exports === 'object') {
     // CommonJS
-    var a = require('./bayeux');
+    var a = require('./realtime-client');
     module.exports = factory(a);
   } else if (typeof define === 'function' && define.amd) {
     // AMD
@@ -3904,7 +3907,212 @@ return jQuery.cometd;
   return RealtimeClient;
 }));
 
-},{"./bayeux":2}],5:[function(require,module,exports){
+},{"./realtime-client":5}],5:[function(require,module,exports){
+(function (root, factory) {
+  if (typeof exports === 'object') {
+    // CommonJS
+    module.exports = factory(
+        require('./bayeux')
+    );
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD
+    define([
+      './bayeux'
+    ], function () { return factory.apply(null, arguments); });
+  }
+}(this, function (bayeux) {
+  console.log(bayeux);
+  return function (){};
+}));
+
+},{"./bayeux":2}],6:[function(require,module,exports){
+(function (root, factory) {
+  var deps = [];
+
+  if (typeof exports === 'object') {
+    // CommonJS
+    module.exports = factory();
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD
+    define(deps, function () { return factory.apply(null, arguments); });
+  }
+}(this, function (yam) {
+
+  // Private vars
+  //---------------
+  var _config = {
+        debug: false,
+        throwExceptions: false
+      }
+    , _mix = function (to, from) {
+        for (var p in from) {
+          to[p] = from[p];
+        }
+        return to;
+      };
+  /*
+   * Updates and retrieves the current settings for a yamjs application.
+   *
+   * yam.config is meant to be used as a global registry for yamjs
+   * configuration.  The idea is that a module can check these
+   * settings to determine state and behavior. Other modules or user
+   * code can change these settings via one convenient method. And at
+   * any given time you can check this to get a snap- shot of the
+   * current state of yamjs.
+   *
+   *     var config = yam.config();
+   *     console.log(config.baseURI);  // undefined
+   *     // note that you always get a copy of the object
+   *     config = yam.config({
+   *       baseURI: 'https://www.staging.yammer.com'
+   *     });
+   *     console.log(config.baseURI);  // staging url
+   *
+   * One thing to keep in mind with this is that here is no mechanism
+   * to be alerted when settings have changed. Some settings may be
+   * "live" in the sense that a module always checks the latest
+   * value. But others may only be checked on first initialization of
+   * the module. See yam.request and "authMethod".  In this case, the
+   * behavior will be different based on using yam.config before
+   * request has been initialized and after.
+   *
+   *     yam.config({
+   *       baseURI: 'https://www.staging.yammer.com'
+   *       , authMethod: 'oauth2'
+   *     });
+   *     yam.request({
+   *       url: yam.uri.api('messages/following/json')
+   *       , success: function() { /* do something /* }
+   *     });
+   *     // Makes a request to the staging api using an oauth2 token
+   *
+   * @param {Object} [settings] an object which will be shallow-mixed into
+   * the current configuration object.
+   * -or-
+   * @param {string} [key] the desired yam.config key
+   * @param {object} the value to be set at the yam.config key
+   * @returns {Object} A copy of the settings object
+   */
+  return function () {
+    var settings;
+    if (arguments.length === 2 && typeof arguments[0] === 'string') {
+      var key = arguments[0]
+        , val = arguments[1];
+
+      _config[key] = val;
+    } else if (arguments.length === 1) {
+      settings = arguments[0];
+    }
+
+    if (settings && typeof settings === 'object') {
+      _config = _mix(_config, settings);
+    }
+    return _mix({}, _config);
+  };
+  
+}));
+
+},{}],7:[function(require,module,exports){
+(function (root, factory) {
+  var deps = [
+    "yam-core/yam"
+  ];
+
+  if (typeof exports === 'object') {
+    // CommonJS
+    module.exports = factory(require("./yam"));
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD
+    define(deps, function () { return factory.apply(null, arguments); });
+  }
+}(this, function (yam) {
+
+  /**
+    @name win.location
+    @function
+    @description wrapper function for window.location. should ape all the common functionality of the window.location object
+    @param {location} the location you want to navigate to
+    @returns new href
+  */
+
+  //this would be more awesome if we could use getters and setters
+
+  var eventBase = "win.location";
+
+  var actionStub = function(action) {
+    if (!action) {
+      action = "location";
+    }
+
+    return function(val) {
+      if (val && action !== 'reload' && action !== 'valueOf' && action !== 'toString' && action !== 'ancestorOrigins') {
+        yam.publish(eventBase, {action: action, val: val});
+        return val;
+      } else if (val == null && action === 'replace') {
+        yam.publish(eventBase, {action: action, val: undefined});
+        return undefined;
+      } else if (action === 'reload') {
+        yam.publish(eventBase, {action: action});
+        return window.location;
+      } else if(action !== "location") {
+        return window.location[action];
+      }
+
+      return window.location;
+    };
+  };
+
+  var toString = function() {return actionStub()().href;};
+
+  var win = {
+
+    location: function(location) {
+
+      var r = actionStub()(location);
+      if (r !== window.location) {
+        return r;
+      }
+
+      return {
+        assign:      actionStub('assign')
+        , toString:  toString
+        , href:      actionStub('href')()
+        , protocol:  actionStub('protocol')()
+        , host:      actionStub('host')()
+        , hostname:  actionStub('hostname')()
+        , hash:      actionStub('hash')()
+        , pathname:  actionStub('pathname')()
+        , port:      actionStub('port')()
+        , origin:    actionStub('origin')()
+        , search:    actionStub('search')()
+        , ancestorOrigins: actionStub('ancestorOrigins')()
+        , replace:   actionStub('replace')
+        , reload:    actionStub('reload')
+      };
+    }
+  };
+
+  win.location.assign   = actionStub('assign');
+  win.location.toString = toString;
+
+  win.location.href     = actionStub('href');
+  win.location.protocol = actionStub('protocol');
+  win.location.host     = actionStub('host');
+  win.location.hostname = actionStub('hostname');
+  win.location.hash     = actionStub('hash');
+  win.location.pathname = actionStub('pathname');
+  win.location.port     = actionStub('port');
+  win.location.origin   = actionStub('origin');
+  win.location.search   = actionStub('search');
+  win.location.ancestorOrigins = actionStub('ancestorOrigins');
+  win.location.replace   = actionStub('replace');
+  win.location.reload   = actionStub('reload');
+
+  return win;
+
+}));
+
+},{"./yam":8}],8:[function(require,module,exports){
 (function (root, factory) {
   var deps = [
     "underscore",
@@ -3914,7 +4122,11 @@ return jQuery.cometd;
 
   if (typeof exports === 'object') {
     // CommonJS
-    module.exports = factory(require.apply(null, deps));
+    module.exports = factory(
+        require("underscore"),
+        require("./config"),
+        require("./window")
+      );
   } else if (typeof define === 'function' && define.amd) {
     // AMD
     define(deps, function () { return factory.apply(null, arguments); });
@@ -4172,7 +4384,7 @@ return jQuery.cometd;
   return yam;
 }));
 
-},{}],6:[function(require,module,exports){
+},{"./config":6,"./window":7,"underscore":10}],9:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.1
  * http://jquery.com/
@@ -13364,7 +13576,7 @@ return jQuery;
 
 }));
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
